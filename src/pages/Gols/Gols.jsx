@@ -1,123 +1,98 @@
 import * as React from 'react';
+import { useState, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
-import { Box, Container } from '@mui/system';
-import Menu from "../Classificacoes/MenuClassificacoes";
+import Menu from "../../components/Menu";
 import { ListItemButton } from '@mui/material';
-import { cyan, lightGreen, teal } from '@mui/material/colors';
-import ClubesMenu from '../Gols/MenuClubes/MenuClubes.jsx'
+import { cyan, lightGreen, teal,green } from '@mui/material/colors';
+import { temporadas } from '../../api/constants'
+import { getTimes, getGolsByTemporada } from '../../api/brasileiraoapi'
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Container from "@mui/material/Container";
 
 
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: 'green',
+        color: theme.palette.common.black,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
 
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+        border: 0,
+    },
+}));
 
-const Gols = ({cor}) => {
+export default function Gols({ cor }) {
+    const [temporada, setTemporada] = useState('');
+    const [clube, setClube] = useState('');
+    const [listaTimes, setListaTimes] = useState([]);
+    const [listaGols, setListaGols] = useState([]);
+
+    const atualizaTimes = async () => {
+        const times = await getTimes()
+        setListaTimes(times.data.map(time => time.clube));
+    }
+
+    useEffect(() => { atualizaTimes() }, [])
+
+    const handleTemporadaChange = (e) => {
+        setTemporada(e.target.value)
+        handleCombinationChange(e.target.value, clube)
+    }
+
+    const handleClubeChange = (e) => {
+        setClube(e.target.value)
+        handleCombinationChange(temporada, e.target.value)
+    }
+
+    const handleCombinationChange = async (temporada, clube) => {
+        const listaGols = temporada && clube && await getGolsByTemporada(temporada, clube)
+        listaGols?.data && setListaGols(listaGols.data)
+        console.log(listaGols)
+    }
 
     return (
         <Container>
-            <Menu cor={cor}/>
-            <ClubesMenu/>
-            <List sx={{ maxHeight: 900, bgcolor: 'white', marginTop: 1 }}
-                subheader={
-                    <ListSubheader sx={{ bgcolor: cor[900], borderColor:'orange', color:'white' }}>
-                        <b sx={{color:'white'}}>Gols</b>
-                    </ListSubheader>
-                }>
-                {tableData.map((row) => (
-                    <ListItemButton>
-                        <ListItemText primary={row.nome} secondary={
-                            <div>
-                                <img src={row.clube} width='20' />
-                                <>{" " + row.time}</>
-                            </div>
-                        } />
-                        <div>
-                            {row.gols + " gols"}
-                        </div>
-                    </ListItemButton>
-                ))
-                }
-            </List>
+            <Menu cor={cor} nome="TEMPORADA" valores={temporadas} escolhido={temporada} handleChange={handleTemporadaChange}  />
+            <Menu cor={cor} nome="CLUBE" valores={listaTimes} escolido={clube} handleChange={handleClubeChange} />
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 300 }}>
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell>Jogador</StyledTableCell>
+                            <StyledTableCell >Gols</StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {listaGols && listaGols.sort((a,b) => b.quantidadeGols - a.quantidadeGols).map((gol=> (
+                            <StyledTableRow>
+                                <StyledTableCell component="th" scope="row">
+                                    {gol.jogador}
+                                </StyledTableCell>
+                                <StyledTableCell align="left">{gol.quantidadeGols}</StyledTableCell>
+                            </StyledTableRow>
+                        )))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </Container>
     );
 };
-
-const tableData = [
-    {
-        id: 1,
-        nome: 'German Cano',
-        gols: '1000',
-        clube: "https://upload.wikimedia.org/wikipedia/pt/thumb/a/a3/FFC_escudo.svg/1024px-FFC_escudo.svg.png",
-        time: 'Fluminense'
-    },
-
-    {
-        id: 2,
-        nome: 'Jhon Arias',
-        gols: '999',
-        clube: 'https://upload.wikimedia.org/wikipedia/pt/thumb/a/a3/FFC_escudo.svg/1024px-FFC_escudo.svg.png',
-        time: 'Fluminense'
-    },
-
-    {
-        id: 3,
-        nome: 'PH Ganso',
-        gols: '998',
-        clube: 'https://upload.wikimedia.org/wikipedia/pt/thumb/a/a3/FFC_escudo.svg/1024px-FFC_escudo.svg.png',
-        time: 'Fluminense'
-    },
-
-    {
-        id: 4,
-        nome: 'Nonato',
-        gols: '997',
-        clube: 'https://upload.wikimedia.org/wikipedia/pt/thumb/a/a3/FFC_escudo.svg/1024px-FFC_escudo.svg.png',
-        time: 'Fluminense'
-    },
-
-    {
-        id: 5,
-        nome: 'Nino',
-        gols: '997',
-        clube: 'https://upload.wikimedia.org/wikipedia/pt/thumb/a/a3/FFC_escudo.svg/1024px-FFC_escudo.svg.png',
-        time: 'Fluminense'
-    },
-
-    {
-        id: 6,
-        nome: 'André',
-        gols: '997',
-        clube: 'https://upload.wikimedia.org/wikipedia/pt/thumb/a/a3/FFC_escudo.svg/1024px-FFC_escudo.svg.png',
-        time: 'Fluminense'
-    },
-
-    {
-        id: 7,
-        nome: 'Caio Paulista',
-        gols: '997',
-        clube: 'https://upload.wikimedia.org/wikipedia/pt/thumb/a/a3/FFC_escudo.svg/1024px-FFC_escudo.svg.png',
-        time: 'Fluminense'
-    },
-
-    {
-        id: 8,
-        nome: 'Fernando Diniz',
-        gols: '997',
-        clube: 'https://upload.wikimedia.org/wikipedia/pt/thumb/a/a3/FFC_escudo.svg/1024px-FFC_escudo.svg.png',
-        time: 'Fluminense'
-    },
-
-    {
-        id: 8,
-        nome: 'Fernando Diniz',
-        gols: '997',
-        clube: 'https://upload.wikimedia.org/wikipedia/pt/thumb/a/a3/FFC_escudo.svg/1024px-FFC_escudo.svg.png',
-        time: 'Fluminense'
-    },
-    
-    
-    
-]
-
-export default Gols

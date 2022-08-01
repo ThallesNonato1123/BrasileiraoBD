@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './styles.css'
 
-function Sidemenu() {
+export default function Sidemenu() {
     return (
         <nav className="navbar">
             <ul className="navbar-nav">
@@ -20,7 +20,7 @@ function Sidemenu() {
             </li>
 
             <li className="nav-item">
-                <Link to= '/classificacoes' className="nav-link">
+                <Link to= '/clubes' className="nav-link">
                     <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="cat" role="img"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
                         className="svg-inline--fa fa-cat fa-w-16 fa-9x">
@@ -30,21 +30,21 @@ function Sidemenu() {
                                 className="fa-secondary"></path>
                         </g>
                     </svg>
-                    <span className="link-text">Classificações</span>
+                    <span className="link-text">Clubes</span>
                 </Link>
             </li>
 
             <li className="nav-item">
                 <Link to='/gols' className="nav-link">
-                    <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="alien-monster" role="img"
+                    <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="fa-hand" role="img"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
-                        className="svg-inline--fa fa-alien-monster fa-w-18 fa-9x">
+                        className="svg-inline--fa fa-solid fa-hand fa-9x">
                         <g className="fa-group">
                             <path fill="currentColor"
-                                d="M560,128H528a15.99954,15.99954,0,0,0-16,16v80H480V176a15.99954,15.99954,0,0,0-16-16H416V96h48a16.00079,16.00079,0,0,0,16-16V48a15.99954,15.99954,0,0,0-16-16H432a15.99954,15.99954,0,0,0-16,16V64H368a15.99954,15.99954,0,0,0-16,16v48H224V80a15.99954,15.99954,0,0,0-16-16H160V48a15.99954,15.99954,0,0,0-16-16H112A15.99954,15.99954,0,0,0,96,48V80a16.00079,16.00079,0,0,0,16,16h48v64H112a15.99954,15.99954,0,0,0-16,16v48H64V144a15.99954,15.99954,0,0,0-16-16H16A15.99954,15.99954,0,0,0,0,144V272a16.00079,16.00079,0,0,0,16,16H64v80a16.00079,16.00079,0,0,0,16,16h48v80a16.00079,16.00079,0,0,0,16,16h96a16.00079,16.00079,0,0,0,16-16V432a15.99954,15.99954,0,0,0-16-16H192V384H384v32H336a15.99954,15.99954,0,0,0-16,16v32a16.00079,16.00079,0,0,0,16,16h96a16.00079,16.00079,0,0,0,16-16V384h48a16.00079,16.00079,0,0,0,16-16V288h48a16.00079,16.00079,0,0,0,16-16V144A15.99954,15.99954,0,0,0,560,128ZM224,320H160V224h64Zm192,0H352V224h64Z"
-                                className="fa-secondary"></path>
-                            <path fill="currentColor" d="M160,320h64V224H160Zm192-96v96h64V224Z" className="fa-primary">
-                            </path>
+                               d="M177.1 228.6L207.9 320h96.5l29.62-91.38L256 172.1L177.1 228.6zM255.1 0C114.6 0 .0001 114.6 .0001 256S114.6 512 256 512s255.1-114.6 255.1-255.1S397.4 0 255.1 0zM416.6 360.9l-85.4-1.297l-25.15 81.59C290.1 445.5 273.4 448 256 448s-34.09-2.523-50.09-6.859L180.8 359.6l-85.4 1.297c-18.12-27.66-29.15-60.27-30.88-95.31L134.3 216.4L106.6 135.6c21.16-26.21 49.09-46.61 81.06-58.84L256 128l68.29-51.22c31.98 12.23 59.9 32.64 81.06 58.84L377.7 216.4l69.78 49.1C445.8 300.6 434.8 333.2 416.6 360.9z"
+                                className="fa-secondary">
+
+                                </path>
                         </g>
                     </svg>
                     <span className="link-text">Gols</span>
@@ -52,7 +52,7 @@ function Sidemenu() {
             </li>
 
             <li className="nav-item">
-                <Link to='/rodadas' className="nav-link">
+                <Link to='/partidas' className="nav-link">
                     <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="space-station-moon-alt"
                         role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
                         className="svg-inline--fa fa-space-station-moon-alt fa-w-16 fa-5x">
@@ -62,25 +62,14 @@ function Sidemenu() {
                                 className="fa-secondary"></path>
                         </g>
                     </svg>
-                    <span className="link-text">Rodadas</span>
+                    <span className="link-text">Partidas</span>
                 </Link>
             </li>
 
             <li className="nav-item">
-                <Link to='/outros' className="nav-link">
-                    <svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="space-shuttle" role="img"
-                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"
-                        className="svg-inline--fa fa-space-shuttle fa-w-20 fa-5x">
-                        <g className="fa-group">
-                            <path fill="currentColor"
-                                d="M32 416c0 35.35 21.49 64 48 64h16V352H32zm154.54-232h280.13L376 168C243 140.59 222.45 51.22 128 34.65V160h18.34a45.62 45.62 0 0 1 40.2 24zM32 96v64h64V32H80c-26.51 0-48 28.65-48 64zm114.34 256H128v125.35C222.45 460.78 243 371.41 376 344l90.67-16H186.54a45.62 45.62 0 0 1-40.2 24z"
-                                className="fa-secondary"></path>
-                            <path fill="currentColor"
-                                d="M592.6 208.24C559.73 192.84 515.78 184 472 184H186.54a45.62 45.62 0 0 0-40.2-24H32c-23.2 0-32 10-32 24v144c0 14 8.82 24 32 24h114.34a45.62 45.62 0 0 0 40.2-24H472c43.78 0 87.73-8.84 120.6-24.24C622.28 289.84 640 272 640 256s-17.72-33.84-47.4-47.76zM488 296a8 8 0 0 1-8-8v-64a8 8 0 0 1 8-8c31.91 0 31.94 80 0 80z"
-                                className="fa-primary"></path>
-                        </g>
-                    </svg>
-                    <span className="link-text">Partidas</span>
+                <Link to='/cartoes' className="nav-link">
+                    <i class="fa-solid fa-hand"></i>
+                    <span className="link-text">Cartões</span>
                 </Link>
             </li>
             <li className="nav-item" id="themeButton"></li>
@@ -88,7 +77,5 @@ function Sidemenu() {
         </nav>
     )
 }
-
-export default Sidemenu
 
 
