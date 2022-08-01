@@ -10,6 +10,11 @@ export default function Menu({ cor, nome, valores, escolhido, handleChange }) {
         <FormControl sx={{ minWidth: 150, marginBottom: "10px" , bgcolor: cor[50]}} size="small">
             <InputLabel id="demo-select-small">{nome}</InputLabel>
             <Select
+                MenuProps={{
+                    style:{
+                        zIndex:1
+                    }
+                }}
                 labelId="demo-select-small"
                 id="demo-select-small"
                 value={escolhido ?? ""}
