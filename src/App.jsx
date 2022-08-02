@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App" >
       <Sidemenu/>
-      <Box sx={{backgroundColor: grey[300], height: '100vh'}}>
+      <Box sx={{backgroundColor: grey[300], height: '170vh'}}>
       <main>
           <PublicRoutes/>
       </main>

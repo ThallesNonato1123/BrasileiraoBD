@@ -7,7 +7,7 @@ import Rodadas from '../pages/Partidas/Partidas';
 import Partidas from '../pages/Partidas/Partidas';
 import { lightGreen, teal, red, lime, lightBlue } from '@mui/material/colors';
 
-const color = lightGreen;
+const color = teal;
 
 const PublicRoutes = () => {
     return (
