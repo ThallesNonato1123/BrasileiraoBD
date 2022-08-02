@@ -1,36 +1,70 @@
-import * as React from 'react';
-import Container from '@mui/material/Container';
-import Stack from '@mui/material/Stack';
-import { styled } from "@mui/material/styles";
-import { red, green, grey, lightGreen, teal, cyan } from '@mui/material/colors';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import { Stadium, CalendarMonth } from '@mui/icons-material';
-import Paper from '@mui/material/Paper';
+import { useState, useEffect } from "react";
+import Container from "@mui/material/Container";
+import CardPartida from "./CardPartida.jsx";
+import Grid from "@mui/material/Grid";
 import Menu from "../../components/Menu";
-import CardPartida from './CardPartida.jsx';
-import Grid from '@mui/material/Grid';
+import { temporadas, rodadas } from "../../api/constants";
+import Box from "@mui/material/Box";
+import { cyan, lightGreen, teal, green, grey } from "@mui/material/colors";
+import { getPartidas } from "../../api/brasileiraoapi";
+
+const cores = [cyan, lightGreen, teal, green, grey];
 
 const Rodadas = ({ cor }) => {
-    return (
-        <Container>
-            <Box sx={{marginLeft: 3}}>
-            </Box>
-            <Grid container spacing={5} columns={2}>
-                <Grid item>
-                    <CardPartida cor={lightGreen} />
-                </Grid>
-                <Grid item>
-                    <CardPartida cor={teal} />
-                </Grid>
-                <Grid item>
-                    <CardPartida cor={grey} />
-                </Grid>
-                <Grid item>
-                    <CardPartida cor={cyan} />
-                </Grid>
+  const [temporada, setTemporada] = useState("");
+  const [rodada, setRodada] = useState("");
+  const [listaPartidas, setListaPartidas] = useState([]);
+
+  const handleTemporadaChange = (e) => {
+    setTemporada(e.target.value);
+    handleCombinationChange(rodada, e.target.value);
+  };
+
+  const handleRodadaChange = (e) => {
+    setRodada(e.target.value);
+    handleCombinationChange(e.target.value, temporada);
+  };
+
+  const handleCombinationChange = async (rodada, temporada) => {
+    const partidas =
+      rodada && temporada && (await getPartidas(rodada, temporada));
+    partidas?.data && setListaPartidas(partidas.data);
+    console.log(listaPartidas);
+  };
+
+  return (
+    <>
+      <Menu
+        cor={cor}
+        nome="TEMPORADA"
+        valores={temporadas}
+        escolhido={temporada}
+        handleChange={handleTemporadaChange}
+      />
+      <Menu
+        cor={cor}
+        nome="RODADA"
+        valores={rodadas}
+        escolido={rodada}
+        handleChange={handleRodadaChange}
+      />
+      <Container>
+        <Box sx={{ marginLeft: 3 }}></Box>
+        <Grid container spacing={5} columns={2}>
+          {listaPartidas.map((p, i) => (
+            <Grid item>
+              <CardPartida
+                cor={cores[i % len(cores)]}
+                timeA={"andre"}
+                timeB={"caio"}
+                data={"hoje"}
+                local={"ccmn"}
+              />
             </Grid>
-        </Container>
-    );
-}
+          ))}
+        </Grid>
+      </Container>
+    </>
+  );
+};
 export default Rodadas;

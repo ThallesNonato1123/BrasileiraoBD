@@ -28,10 +28,6 @@ const PublicRoutes = () => {
             />
 
             <Route
-                path='/cartoes' element={<Partidas/>} 
-            />
-
-            <Route
                 path='/*' element={<Navigate to='/home' />} 
             />
         </Routes>

@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import { Stadium, CalendarMonth } from '@mui/icons-material';
 import Paper from '@mui/material/Paper';
 
-const CardPartida = ({ cor }) => {
+const CardPartida = ({ cor, timeA, timeB, data, local }) => {
     const Item = styled(Paper)(({ theme }) => ({
         textAlign: "center",
         color: theme.palette.text.secondary,
@@ -50,7 +50,7 @@ const CardPartida = ({ cor }) => {
                     height={80}
                     alt="fla"
                     />
-                    <Typography>Flamengo</Typography>
+                    <Typography>{timeA}</Typography>
                 </Stack>
                 <Stack direction="row" spacing={3} alignItems="center">
                     <Typography variant="h3">0</Typography>
@@ -64,7 +64,7 @@ const CardPartida = ({ cor }) => {
                     height={80}
                     alt="fla"
                     />
-                    <Typography>Fluminense</Typography>
+                    <Typography>{timeB}</Typography>
                 </Stack>
                 </CardSuperior>
                 <CardInferior direction="row" spacing={4} alignItems="center">
@@ -72,13 +72,13 @@ const CardPartida = ({ cor }) => {
                     <Box color={cor[700]}>
                     <CalendarMonth />
                     </Box>
-                    <Typography>27/08/2012</Typography>
+                    <Typography>{data}</Typography>
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={1}>
                     <Box color={cor[700]}>
                     <Stadium />
                     </Box>
-                    <Typography>Grêmio Recreativo do Cainfo</Typography>
+                    <Typography>{local}</Typography>
                 </Stack>
                 </CardInferior>
             </Item>

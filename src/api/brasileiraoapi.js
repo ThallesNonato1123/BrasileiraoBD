@@ -2,10 +2,10 @@ import axios from 'axios'
 
 const host = "https://localhost"
 
-const port = "7083" 
+const port = "7083"
 
-export const getPartidas = async (partidaId) => await axios
-.get(`${host}:${port}/api/Brasileirao/partidas/${partidaId}`)
+export const getPartidas = async (rodada, temporada) => await axios
+.get(`${host}:${port}/api/Brasileirao/partidas?rodada=${rodada}&temporada=${temporada}`)
 .catch(err=>console.log(err))
 
 export const getTimes = async () => await axios

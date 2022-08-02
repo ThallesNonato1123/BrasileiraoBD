@@ -66,7 +66,6 @@ export default function Gols({ cor }) {
     const handleCombinationChange = async (temporada, clube) => {
         const listaGols = temporada && clube && await getGolsByTemporada(temporada, clube)
         listaGols?.data && setListaGols(listaGols.data)
-        console.log(listaGols)
     }
 
     return (
