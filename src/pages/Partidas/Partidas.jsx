@@ -14,9 +14,7 @@ const Rodadas = ({ cor }) => {
   const [temporada, setTemporada] = useState("");
   const [rodada, setRodada] = useState("");
   const [listaPartidas, setListaPartidas] = useState([]);
-  const [partidasFinal, setPartidasFinal] = useState([]);
-  let partidasDefinitivo;
-  
+
   const handleTemporadaChange = (e) => {
     setTemporada(e.target.value);
     handleCombinationChange(rodada, e.target.value);
@@ -27,18 +25,19 @@ const Rodadas = ({ cor }) => {
     handleCombinationChange(e.target.value, temporada);
   };
   const handleCombinationChange = async (rodada, temporada) => {
-    const partidas = rodada && temporada && (await getPartidas(rodada, temporada));
+    const partidas =
+      rodada && temporada && (await getPartidas(rodada, temporada));
 
-    if(!partidas?.data) return;
+    if (!partidas?.data) return;
 
     const temp = [];
-    for (let i = 0; i < partidas.data.length; i+=2) {
-      temp.push([partidas.data[i], partidas.data[i+1]])
+    for (let i = 0; i < partidas.data.length; i += 2) {
+      temp.push([partidas.data[i], partidas.data[i + 1]]);
     }
     setListaPartidas(temp);
   };
 
-  return(
+  return (
     <>
       <Menu
         cor={cor}
@@ -56,23 +55,33 @@ const Rodadas = ({ cor }) => {
       />
       <Container>
         <Box sx={{ marginLeft: 3 }}></Box>
-        <Grid container spacing={5} columns={2} >
-          {listaPartidas && listaPartidas.map((partida, i) => (
-            <Grid item key={i}>
-              <CardPartida
-                cor={cores[i % cores.length]}
-                timeA={partida[0].sigla}
-                escudoTimeA={partida[0].escudo}
-                golsMarcadosA={partida[0].quantidadeGols}
-                timeB={partida[1].sigla}
-                escudoTimeB={partida[1].escudo}
-                golsMarcadosB={partida[1].quantidadeGols}
-                data={partida[0].dataPartida}
-                local={partida[0].estadio}
-              />
-            </Grid>
-          ))}
+        <Grid container spacing={5} columns={2}>
+          {listaPartidas &&
+            listaPartidas.map((partida, i) => (
+              <Grid item key={i}>
+                <CardPartida
+                  cor={cores[i % cores.length]}
+                  timeA={partida[0].sigla}
+                  escudoTimeA={partida[0].escudo}
+                  golsMarcadosA={partida[0].quantidadeGols}
+                  timeB={partida[1].sigla}
+                  escudoTimeB={partida[1].escudo}
+                  golsMarcadosB={partida[1].quantidadeGols}
+                  data={partida[0].dataPartida}
+                  local={partida[0].estadio}
+                />
+              </Grid>
+            ))}
         </Grid>
+      </Container>
+      <Container>
+        <Box sx={{ marginTop: 20 }}>
+        {temporada && rodada && listaPartidas?.length == 0 && (
+          <h3>
+            No ano de {temporada} o campeonato não chegou na rodada {rodada}.
+          </h3>
+        )}
+        </Box>
       </Container>
     </>
   );
