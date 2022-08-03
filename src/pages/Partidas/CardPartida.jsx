@@ -5,8 +5,9 @@ import { styled } from "@mui/material/styles";
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import { Stadium, CalendarMonth, ExpandMore, RectangleRounded } from '@mui/icons-material';
+import { Stadium, CalendarMonth, ExpandMore, RectangleRounded,SportsSoccer} from '@mui/icons-material';
 import Paper from '@mui/material/Paper';
+import { red } from "@mui/material/colors";
 
 const CardPartida = ({ cor, escudoTimeA, golsMarcadosA, golsMarcadosB, escudoTimeB, timeA, timeB, data, local }) => {
     const Item = styled(Paper)(({ theme }) => ({

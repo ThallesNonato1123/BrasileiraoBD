@@ -27,16 +27,16 @@ const Rodadas = ({ cor }) => {
     handleCombinationChange(e.target.value, temporada);
   };
   const handleCombinationChange = async (rodada, temporada) => {
-    const partidas =
-    rodada && temporada && (await getPartidas(rodada, temporada));
+    const partidas = rodada && temporada && (await getPartidas(rodada, temporada));
+
+    if(!partidas?.data) return;
+
     const temp = [];
-    for (let i = 0; i < partidas?.data.length; i+=2) {
-      temp.push([partidas?.data[i], partidas?.data[i+1]])
+    for (let i = 0; i < partidas.data.length; i+=2) {
+      temp.push([partidas.data[i], partidas.data[i+1]])
     }
     setListaPartidas(temp);
   };
-  
-  //useEffect(handleCombinationChange(rodada, temporada), [rodada, temporada]) ;
 
   return(
     <>
