@@ -23,11 +23,11 @@ export const getGolsByTemporada = async (temporada, clube) => await axios
 .get(`${host}:${port}/api/Brasileirao/gols?temporada=${temporada}&clube=${clube}`)
 .catch(err=>console.log(err))
 
-export const getCartoes = async (partidaId, clube) => await axios
-.get(`${host}:${port}/api/Brasileirao/cartoes/${partidaId}?clube=${clube}`)
+export const getCartoes = async (partidaId) => await axios
+.get(`${host}:${port}/api/Brasileirao/cartoes/${partidaId}`)
 .catch(err=>console.log(err))
 
-export const inserirPartida = async (payload) => {
+export const postPartida = async (payload) => {
     return await axios
     .post(`${host}:${port}/api/Brasileirao/partida`, payload)
     .catch(err=>console.log(err))

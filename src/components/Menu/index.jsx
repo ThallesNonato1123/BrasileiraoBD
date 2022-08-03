@@ -7,7 +7,7 @@ import { cyan, teal, lightGreen } from '@mui/material/colors';
 
 export default function Menu({ cor, nome, valores, escolhido, handleChange }) {
     return (
-        <FormControl sx={{ minWidth: 150, marginBottom: "10px" , bgcolor: cor[50]}} size="small">
+        <FormControl sx={{ minWidth: 150, marginBottom: "10px" , bgcolor: cor[50],marginRight:"3px"}} size="small">
             <InputLabel id="demo-select-small">{nome}</InputLabel>
             <Select
                 MenuProps={{

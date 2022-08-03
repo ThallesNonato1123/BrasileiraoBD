@@ -14,7 +14,7 @@ import {
 } from "@mui/icons-material";
 import Paper from "@mui/material/Paper";
 import { red } from "@mui/material/colors";
-import { getGolsByPartida } from "../../api/brasileiraoapi";
+import { getGolsByPartida, getCartoes } from "../../api/brasileiraoapi";
 
 const CardPartida = ({
   cor,
@@ -57,9 +57,10 @@ const CardPartida = ({
   const [rotacao, setRotacao] = React.useState(0);
   const [translacao, setTranslacao] = React.useState(0);
   const [listaGols, setListaGols] = React.useState([]);
+  const [listaCartoes, setListaCartoes] = React.useState([]);
 
-  const EventoCartao = () => (
-    <Stack direction="row">
+  const EventoCartao = ({ jogador, tempo, time }) => (
+    <Stack direction={time == timeA ? "row" : "row-reverse"}>
       <Box
         color={red[700]}
         sx={{ transform: "rotate(90deg) translate(-3px, 2px)" }}
@@ -67,9 +68,14 @@ const CardPartida = ({
         <RectangleRounded />
       </Box>
       <Typography variant="body1" marginX={0.5}>
-        Cáceres
+        {jogador}
       </Typography>
-      <Typography>90'</Typography>
+      <Typography>
+        {tempo.length > 2
+          ? `${tempo.substring(0, 2)}+${tempo.substring(2)}`
+          : tempo}
+        '
+      </Typography>
     </Stack>
   );
 
@@ -144,6 +150,8 @@ const CardPartida = ({
               if (eventosAtivos == "block") {
                 const gols = await getGolsByPartida(partida);
                 setListaGols(gols.data);
+                const cartoes = await getCartoes(partida);
+                setListaCartoes(cartoes.data);
               }
             }}
           >
@@ -161,13 +169,20 @@ const CardPartida = ({
         <Box display={eventos}>
           <Divider />
           <Box paddingY={2} paddingX={6}>
-            <EventoCartao />
             {listaGols &&
               listaGols.map((g) => (
                 <EventoGol
                   jogador={g.jogador}
                   minutagem={g.minutagem.toString()}
                   time={g.clube}
+                />
+              ))}
+            {listaCartoes &&
+              listaCartoes.map((c) => (
+                c.cor == "Vermelho" && <EventoCartao
+                  jogador={c.jogador}
+                  tempo={c.tempo.toString()}
+                  time={c.clube}
                 />
               ))}
           </Box>

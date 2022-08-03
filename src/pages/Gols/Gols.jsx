@@ -71,7 +71,7 @@ export default function Gols({ cor }) {
     return (
         <Container>
             <Menu cor={cor} nome="TEMPORADA" valores={temporadas} escolhido={temporada} handleChange={handleTemporadaChange}  />
-            <Menu cor={cor} nome="CLUBE" valores={listaTimes} escolido={clube} handleChange={handleClubeChange} />
+            <Menu cor={cor} nome="CLUBE" valores={listaTimes} escolhido={clube} handleChange={handleClubeChange} />
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 300 }}>
                     <TableHead>

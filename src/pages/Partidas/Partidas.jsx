@@ -62,7 +62,7 @@ const Rodadas = ({ cor }) => {
         <Grid container spacing={5} columns={2}>
           {listaPartidas &&
             listaPartidas.map((partida, i) => (
-              <Grid item key={partida+i}>
+              <Grid item key={partida[0].clube+partida[1].clube+i}>
                 <CardPartida
                   cor={cores[i % cores.length]}
                   timeA={partida[0].clube}
