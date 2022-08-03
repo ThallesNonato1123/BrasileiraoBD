@@ -27,8 +27,7 @@ export const getCartoes = async (partidaId, clube) => await axios
 .get(`${host}:${port}/api/Brasileirao/cartoes/${partidaId}?clube=${clube}`)
 .catch(err=>console.log(err))
 
-export const inserirPartida = async (partidaId) => {
-    const payload = {}
+export const inserirPartida = async (payload) => {
     return await axios
     .post(`${host}:${port}/api/Brasileirao/partida`, payload)
     .catch(err=>console.log(err))

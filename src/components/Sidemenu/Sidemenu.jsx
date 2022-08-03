@@ -51,12 +51,6 @@ export default function Sidemenu() {
           </Link>
         </li>
 
-        <li className="nav-item">
-          <Link to='/cartoes' className="nav-link">
-            <Sports className="fa-secondary" fontSize='large' />
-            <span className="link-text">Cartões</span>
-          </Link>
-        </li>
         <li className="nav-item" id="themeButton"></li>
       </ul>
     </nav>

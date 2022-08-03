@@ -1,10 +1,11 @@
 import React from 'react';
 import './styles.css';
+import jogoPao from './jogoPao.png'; 
 
 const Home = () => {
     return (
         <>
-            <>Home</>
+            <img src={jogoPao} ></img>
         </>
     );
 };
